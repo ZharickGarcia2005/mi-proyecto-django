@@ -19,10 +19,11 @@
 
   <body>
 
-    <!-- Navegación -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand" href="{% url 'portada' %}">{{ mi_nombre }}</a>
+        <a class="navbar-brand" href="{% url 'portada' %}">
+          {% if persona %}{{ persona.nombre }}{% else %}Mi Web Personal{% endif %}
+        </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menú
           <i class="fa fa-bars"></i>
@@ -46,57 +47,67 @@
       </div>
     </nav>
 
-    <!-- Cabecera -->
     {% block cabecera %}{% endblock %}
 
-    <!-- Contenido Principal -->
     {% block content %}{% endblock %}
 
-    <!-- Pie de página -->
     <ul class="list-inline text-center">
-  <li class="list-inline-item">
-    <a href="mailto:{{ email }}">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  <li class="list-inline-item">
-    <a href="{{ github }}" target="_blank">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  <li class="list-inline-item">
-    <a href="{{ youtube }}" target="_blank">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  <li class="list-inline-item">
-    <a href="{{ instagram }}" target="_blank">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-  <li class="list-inline-item">
-    <a href="{{ tiktok }}" target="_blank">
-      <span class="fa-stack fa-lg">
-        <i class="fa fa-circle fa-stack-2x"></i>
-        <i class="fa fa-music fa-stack-1x fa-inverse"></i>
-      </span>
-    </a>
-  </li>
-</ul>
+      {% if persona.email %}
+      <li class="list-inline-item">
+        <a href="mailto:{{ persona.email }}">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      {% endif %}
 
-    <!-- Scripts -->
+      {% if persona.github %}
+      <li class="list-inline-item">
+        <a href="{{ persona.github }}" target="_blank">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if persona.youtube %}
+      <li class="list-inline-item">
+        <a href="{{ persona.youtube }}" target="_blank">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-youtube fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if persona.instagram %}
+      <li class="list-inline-item">
+        <a href="{{ persona.instagram }}" target="_blank">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      {% endif %}
+
+      {% if persona.tiktok %}
+      <li class="list-inline-item">
+        <a href="{{ persona.tiktok }}" target="_blank">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-music fa-stack-1x fa-inverse"></i>
+          </span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+
     <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'core/js/clean-blog.min.js' %}"></script>

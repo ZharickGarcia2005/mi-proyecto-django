@@ -42,3 +42,10 @@ def contact(request):
         'honorarios': '50$/h',
     }
     return render(request, 'core/contact.html', context)
+from django.shortcuts import render
+from .models import Persona
+
+def home(request):
+    # Obtenemos el primer registro de datos personales que crees en el admin
+    persona = Persona.objects.first()
+    return render(request, "core/home.html", {'persona': persona})

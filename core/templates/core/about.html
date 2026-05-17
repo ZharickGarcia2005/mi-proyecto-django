@@ -1,7 +1,7 @@
 {% extends 'core/base.html' %}
 {% load static %}
 
-{% block title %}{{ mi_nombre }} - Acerca de{% endblock %}
+{% block title %}{% if persona %}{{ persona.nombre }}{% else %}Mi Web Personal{% endif %} - Acerca de{% endblock %}
 
 {% block cabecera %}
 <header class="masthead" style="background-image: url('{% static 'core/img/about-bg.jpg' %}')">
@@ -23,13 +23,18 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-3 col-md-4 offset-lg-1">
-      <img class="img-fluid avatar" src="{% static 'core/img/avatar.jpg' %}" alt="{{ mi_nombre }}">
+      {% if persona.foto %}
+        <img class="img-fluid avatar" src="{{ persona.foto.url }}" alt="{{ persona.nombre }}">
+      {% else %}
+        <img class="img-fluid avatar" src="{% static 'core/img/avatar.jpg' %}" alt="{% if persona %}{{ persona.nombre }}{% else %}Avatar{% endif %}">
+      {% endif %}
     </div>
+
     <div class="col-lg-7 col-md-8">
-      <h2 class="section-heading">{{ mi_nombre }}</h2>
-      <p>{{ biografia }}</p>
-      {% if biografia_extra %}
-        <p>{{ biografia_extra }}</p>
+      <h2 class="section-heading">{% if persona %}{{ persona.nombre }}{% else %}Sobre Mí{% endif %}</h2>
+      <p>{% if persona %}{{ persona.biografia }}{% else %}Biografía no configurada aún.{% endif %}</p>
+      {% if persona.biografia_extra %}
+        <p>{{ persona.biografia_extra }}</p>
       {% endif %}
     </div>
   </div>
